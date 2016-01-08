@@ -6,7 +6,7 @@
 
 ### Склонируй репозиторий и перейди в папку проекта
 ```
-git clone git@github.com:CSSSR/csssr-project-template.git new-project && cd new-project
+git clone git@github.com:Boilerplate.git new-project && cd new-project
 ```
 
 ### Установи пакеты и модули
@@ -59,32 +59,32 @@ gulp webserver
 
 ## Структура папок и файлов
 ```
-├── project/                     # Корневая папка проекта
-│   ├── src/                    # Исходники
-│   │   ├── fonts/             # Шрифты
-│   │   ├── img/               # Изображения
-│   │   ├── js/                # Скрипты
-│   │   │   ├── vendor        # Bower components
-│   │   │   ├── main.js       # Главный скрипт
-│   │   ├── style/             # Стили
-│   │   │   ├── common        # Стили шапки, футера, сайдбар навигации
-│   │   │   ├── components    # Компоненты
-│   │   │   ├── pages         # Стили для страниц
-│   │   │   ├── util          # Переменные, миксины, сетка, шрифты
-│   │   │   ├── main.styl     # Главный файл стилей
-│   │   ├── templates/         # Шаблоны (разметка)
-│   │   │   ├── common        # Общие 
-│   │   │   ├── components    # Компоненты
-│   │   │   ├── util          # миксины
-│   │   │   ├── base.jade     # Базовый шаблон
-│   └── index.jade             # Страница
-│   ├── build/                 # Сборка (автогенерация)
-├── .bowerrc                    # Доп. настройки для bower
-├── .gitignore                  # Гит игнор
-├── bower.json                  # Список пакетов
-├── gulpfile.js                 # gulp
-├── package.json                # Список модулей и прочей информации
-└── readme.md                   # Документация шаблона
+├── project/                  # Корневая папка проекта
+│   ├── src/                  # Исходники
+│   │   ├── fonts/           # Шрифты
+│   │   ├── img/             # Изображения
+│   │   ├── js/              # Скрипты
+│   │   │   ├── vendor      # Bower components
+│   │   │   ├── main.js     # Главный скрипт
+│   │   ├── style/           # Стили
+│   │   │   ├── common      # Стили шапки, футера, сайдбар навигации
+│   │   │   ├── components  # Компоненты
+│   │   │   ├── pages       # Стили для страниц
+│   │   │   ├── util        # Переменные, миксины, сетка, шрифты
+│   │   │   ├── main.styl   # Главный файл стилей
+│   │   ├── templates/       # Шаблоны (разметка)
+│   │   │   ├── common       # Общие 
+│   │   │   ├── components   # Компоненты
+│   │   │   ├── util         # миксины
+│   │   │   ├── base.jade    # Базовый шаблон
+│   └── index.jade            # Страница
+│   ├── build/                # Сборка (автогенерация)
+├── .bowerrc                   # Доп. настройки для bower
+├── .gitignore                 # Гит игнор
+├── bower.json                 # Список пакетов
+├── gulpfile.js                # gulp
+├── package.json               # Список модулей и прочей информации
+└── readme.md                  # Документация шаблона
 ```
 
 
