@@ -1,0 +1,60 @@
+// Modificators
+
+.t-a {
+  &_r {
+    text-align right
+  }
+  &_l {
+    text-align left
+  }
+  &_c {
+    text-align center
+  }
+}
+
+.vertical {
+  &_after {
+    height: 100%;
+    &:after {
+      content '';
+      display inline-block
+      vertical-align middle
+      height  100%
+    }
+  }
+  &_middle {
+    display: inline-block;
+    vertical-align middle !important;
+  }
+  &_top {
+    vertical-align top
+  }
+}
+
+.p {
+  &_r {
+    position relative
+  }
+  &_a {
+    position absolute
+  }
+  &_s {
+    position static
+  }
+  &_f {
+    position fixed
+  }
+}
+
+
+// Mixins
+center(w, h) {
+  position absolute
+  left: 50%
+  top: 50%
+  margin: 0 0
+  margin-top: -(h / 2)px
+  margin-left: -(w / 2)px
+  width: w;
+  height: h;
+}

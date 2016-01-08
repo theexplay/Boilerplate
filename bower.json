@@ -1,0 +1,17 @@
+{
+  "name": "boilerplate",
+  "version": "1.0.0",
+  "homepage": "https://github.com/theexplay/",
+  "authors": [
+    "Murat Atila <theexplay@gmail.com>"
+  ],
+  "description": "Boilerplate",
+  "moduleType": [
+    "globals"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "normalize.css": "*",
+    "jquery": "2.*"
+  }
+}
