@@ -4,15 +4,17 @@ html(lang='ru')
         meta(charset='UTF-8')
         meta(name='viewport', content='width=device-width, initial-scale=1.0')
         link(rel='stylesheet', href='css/main.css')
-        script(src='js/main.js')
         block title
+            title
     body
         include  ./util/mixins.jade
 
         block header
-            include ./common/header.jade
+            include ./components/header.jade
 
         block content
 
         block footer
-            include ./common/footer.jade
+            include ./components/footer.jade
+
+        script(src='js/main.js')
