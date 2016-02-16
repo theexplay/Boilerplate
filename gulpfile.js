@@ -4,6 +4,7 @@ var gulp = require('gulp'),
     watch = require('gulp-watch'),
     prefixer = require('gulp-autoprefixer'),
     uglify = require('gulp-uglify'),
+    spritesmith = require('gulp.spritesmith'),
     stylus = require('gulp-stylus'),
     sourcemaps = require('gulp-sourcemaps'),
     rigger = require('gulp-rigger'),
@@ -17,6 +18,7 @@ var gulp = require('gulp'),
     reload = browserSync.reload;
 
 var path = {
+
     build: {
         html: 'build/',
         js: 'build/js/',
@@ -24,6 +26,7 @@ var path = {
         img: 'build/img/',
         fonts: 'build/fonts/'
     },
+
     src: {
         html: 'src/**/*.jade',
         js: 'src/js/main.js',
@@ -31,6 +34,7 @@ var path = {
         img: 'src/img/**/*.*',
         fonts: 'src/fonts/**/*.*'
     },
+
     watch: {
         html: 'src/**/*.jade',
         js: 'src/js/**/*.js',
@@ -38,13 +42,16 @@ var path = {
         img: 'src/img/**/*.*',
         fonts: 'src/fonts/**/*.*'
     },
+
     clean: './build'
 };
 
 var config = {
+
     server: {
         baseDir: "./build"
     },
+
     tunnel: true,
     host: 'localhost',
     port: 9000,
@@ -62,8 +69,10 @@ gulp.task('clean', function (cb) {
 
 gulp.task('jade:build', function () {
     gulp.src(path.src.html)
-        .pipe(changed(path.build.html))
-        .pipe(jade())
+        .pipe(changed(path.src.html))
+        .pipe(jade({
+            pretty: true
+        }))
         .pipe(gulp.dest(path.build.html))
         .pipe(reload({stream: true}));
 });
@@ -105,34 +114,58 @@ gulp.task('image:build', function (err, files) {
         .pipe(gulp.dest(path.build.img));
 });
 
-gulp.task('fonts:build', function() {
+gulp.task('sprite:build', function () {
+    var spriteData =
+        gulp.src('./src/img/sprite/*.*')
+            .pipe(spritesmith({
+                imgName: 'sprite.png',
+                cssName: 'sprite-icons.styl',
+                cssFormat: 'stylus',
+                algorithm: 'binary-tree',
+                cssTemplate: 'stylus.template.mustache',
+                cssVarMap: function (sprite) {
+                    sprite.name = 's-' + sprite.name
+                }
+            }));
+
+    spriteData.img.pipe(gulp.dest('./build/img/'));
+    spriteData.css.pipe(gulp.dest('./src/style/components/'));
+});
+
+gulp.task('fonts:build', function () {
     gulp.src(path.src.fonts)
-        .pipe(gulp.dest(path.build.fonts))
+        .pipe(gulp.dest(path.build.fonts));
 });
 
 gulp.task('build', [
+    'sprite:build',
     'jade:build',
     'js:build',
-    'style:build',
+    'image:build',
     'fonts:build',
-    'image:build'
+    'style:build'
 ]);
 
 
-gulp.task('watch', function(){
-    watch([path.watch.html], function(event, cb) {
+gulp.task('watch', function () {
+
+    watch([path.watch.html], function (event, cb) {
         gulp.start('jade:build');
     });
-    watch([path.watch.style], function(event, cb) {
+
+    watch([path.watch.style], function (event, cb) {
         gulp.start('style:build');
     });
-    watch([path.watch.js], function(event, cb) {
+
+    watch([path.watch.js], function (event, cb) {
         gulp.start('js:build');
     });
-    watch([path.watch.img], function(event, cb) {
+
+    watch([path.watch.img], function (event, cb) {
         gulp.start('image:build');
     });
-    watch([path.watch.fonts], function(event, cb) {
+
+    watch([path.watch.fonts], function (event, cb) {
         gulp.start('fonts:build');
     });
 });
