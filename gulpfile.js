@@ -1,174 +1,154 @@
 'use strict';
 
 var gulp = require('gulp'),
-    watch = require('gulp-watch'),
-    prefixer = require('gulp-autoprefixer'),
-    uglify = require('gulp-uglify'),
-    spritesmith = require('gulp.spritesmith'),
-    stylus = require('gulp-stylus'),
-    sourcemaps = require('gulp-sourcemaps'),
-    rigger = require('gulp-rigger'),
-    cssmin = require('gulp-minify-css'),
-    imagemin = require('gulp-imagemin'),
-    pngquant = require('imagemin-pngquant'),
-    del = require('del'),
-    jade = require('gulp-jade'),
-    browserSync = require("browser-sync"),
-    changed = require('gulp-changed'),
-    reload = browserSync.reload;
+	jade = require('jade'),
+	jadeGulp = require('gulp-jade'),
+	jadeInheritance = require('gulp-jade-inheritance'),
+	data = require('gulp-data'),
+	htmlPrettify = require('gulp-prettify'),
+	stylus = require('gulp-stylus'),
+	autoprefixer = require('gulp-autoprefixer'),
+	csscomb = require('gulp-csscomb'),
+	cssmin = require('gulp-clean-css'),
+	gcmq = require('gulp-combine-mq'),
+	iconfont = require('gulp-iconfont'),
+	imagemin = require('gulp-imagemin'),
+	imageminPngquant = require('imagemin-pngquant'),
+	spritesmith = require('gulp.spritesmith'),
+	sourcemaps = require('gulp-sourcemaps'),
+	browserSync = require('browser-sync').create(),
+	rename = require('gulp-rename'),
+	flatten = require('gulp-flatten'),
+	gulpif = require('gulp-if'),
+	gutil = require('gulp-util'),
+	del = require('rimraf'),
+	changed = require('gulp-changed'),
+	concat = require('gulp-concat'),
+	plumber = require('gulp-plumber'),
+	runSequence = require('run-sequence'),
+	uglify = require('gulp-uglify'),
+	watch = require('gulp-watch'),
+	cached = require('gulp-cached');
 
-var path = {
+// Error handler for gulp-plumber
+var errorHandler = function (err) {
+	gutil.log([(err.name + ' in ' + err.plugin).bold.red, '', err.message, ''].join('\n'));
 
-    build: {
-        html: 'build/',
-        js: 'build/js/',
-        css: 'build/css/',
-        img: 'build/img/',
-        fonts: 'build/fonts/'
-    },
+	if (gutil.env.beep) {
+		gutil.beep();
+	}
 
-    src: {
-        html: 'src/**/*.jade',
-        js: 'src/js/main.js',
-        style: 'src/style/main.styl',
-        img: 'src/img/**/*.*',
-        fonts: 'src/fonts/**/*.*'
-    },
-
-    watch: {
-        html: 'src/**/*.jade',
-        js: 'src/js/**/*.js',
-        style: 'src/style/**/*.styl',
-        img: 'src/img/**/*.*',
-        fonts: 'src/fonts/**/*.*'
-    },
-
-    clean: './build'
+	this.emit('end');
 };
 
-var config = {
+// Read file and return object
+var getData = function getData (file) {
+	var dataEntry;
+	var data;
+	var fs = require('fs');
 
-    server: {
-        baseDir: "./build"
-    },
+	try {
+		dataEntry = fs.readFileSync(file, 'utf8');
+	} catch (er) {
+		dataEntry = false;
+	}
 
-    tunnel: true,
-    host: 'localhost',
-    port: 9000,
-    logPrefix: "werb"
+	if (dataEntry) {
+		eval('data = {' + dataEntry + '}');
+	} else {
+		data = '{}';
+	}
+
+	return data;
 };
 
+// Plugins options
+var options = {
 
-gulp.task('webserver', function () {
-    browserSync(config);
-});
+	path: {
+		build: {
+			html: './build/',
+			js: './build/js/',
+			css: './build/css/',
+			img: './build/img/',
+			fonts: './build/fonts/'
+		},
 
-gulp.task('clean', function (cb) {
-    del(path.clean, cb);
-});
+		src: {
+			html: './src/**/*.jade',
+			js: './src/js/main.js',
+			style: './src/style/main.styl',
+			img: './src/img/**/*.*',
+			fonts: './src/fonts/**/*.*'
+		},
+
+		watch: {
+			html: './src/**/*.jade',
+			js: './src/js/**/*.js',
+			style: './src/style/**/*.styl',
+			img: './src/img/**/*.*',
+			fonts: './src/fonts/**/*.*'
+		},
+
+		clean: './build'
+	},
+
+	plumber: {
+		errorHandler: errorHandler
+	},
+
+	stylus: {
+		use: [
+			autoprefixer({
+				cascade: false
+			})
+		]
+	},
+
+	jade: {
+		jade: jade,
+		pretty: '\t'
+	},
+
+	htmlPrettify: {
+		'unformatted': ['pre', 'code'],
+		'indent_with_tabs': true,
+		'preserve_newlines': true,
+		'brace_style': 'expand',
+		'end_with_newline': true
+	},
+
+	spritesmith: {
+		retinaSrcFilter: '**/*@2x.png',
+		imgName: 'sprite.png',
+		retinaImgName: 'sprite@2x.png',
+		cssName: 'sprite.styl',
+		algorithm: 'binary-tree',
+		padding: 8,
+		cssTemplate: './stylus.template.mustache'
+	},
+
+	imagemin: {
+		optimizationLevel: 3,
+		progressive: true,
+		interlaced: true,
+		svgoPlugins: [{removeViewBox: false}],
+		use: [
+			imageminPngquant()
+		]
+	}
+};
 
 gulp.task('jade:build', function () {
-    gulp.src(path.src.html)
-        .pipe(changed(path.src.html))
-        .pipe(jade({
-            pretty: true
-        }))
-        .pipe(gulp.dest(path.build.html))
-        .pipe(reload({stream: true}));
+	return gulp.src(options.path.src.html)
+		.pipe(plumber(options.plumber))
+		.pipe(cached('templates'))
+		.pipe(jadeInheritance({basedir: './src'}))
+		.pipe(data(function(file) {
+			return require('./src/templates/_data.json');
+		}))
+		.pipe(jadeGulp(options.jade))
+
+		.pipe(gulp.dest(options.path.build.html));
 });
 
-gulp.task('js:build', function () {
-    gulp.src(path.src.js)
-        .pipe(rigger())
-        .pipe(sourcemaps.init())
-        .pipe(uglify())
-        .pipe(sourcemaps.write())
-        .pipe(gulp.dest(path.build.js))
-        .pipe(reload({stream: true}));
-});
-
-gulp.task('style:build', function () {
-    gulp.src(path.src.style)
-        .pipe(sourcemaps.init())
-        .pipe(stylus({
-            includePaths: ['src/style/'],
-            outputStyle: 'compressed',
-            sourceMap: true,
-            errLogToConsole: true
-        }))
-        .pipe(prefixer())
-        .pipe(cssmin())
-        .pipe(sourcemaps.write())
-        .pipe(gulp.dest(path.build.css))
-        .pipe(reload({stream: true}));
-});
-
-gulp.task('image:build', function (err, files) {
-    gulp.src(path.src.img)
-        .pipe(imagemin({
-            progressive: true,
-            svgoPlugins: [{removeViewBox: false}],
-            use: [pngquant()],
-            interlaced: true
-        }))
-        .pipe(gulp.dest(path.build.img));
-});
-
-gulp.task('sprite:build', function () {
-    var spriteData =
-        gulp.src('./src/img/sprite/*.*')
-            .pipe(spritesmith({
-                imgName: 'sprite.png',
-                cssName: 'sprite-icons.styl',
-                cssFormat: 'stylus',
-                algorithm: 'binary-tree',
-                cssTemplate: 'stylus.template.mustache',
-                cssVarMap: function (sprite) {
-                    sprite.name = 's-' + sprite.name
-                }
-            }));
-
-    spriteData.img.pipe(gulp.dest('./build/img/'));
-    spriteData.css.pipe(gulp.dest('./src/style/components/'));
-});
-
-gulp.task('fonts:build', function () {
-    gulp.src(path.src.fonts)
-        .pipe(gulp.dest(path.build.fonts));
-});
-
-gulp.task('build', [
-    'sprite:build',
-    'jade:build',
-    'js:build',
-    'image:build',
-    'fonts:build',
-    'style:build'
-]);
-
-
-gulp.task('watch', function () {
-
-    watch([path.watch.html], function (event, cb) {
-        gulp.start('jade:build');
-    });
-
-    watch([path.watch.style], function (event, cb) {
-        gulp.start('style:build');
-    });
-
-    watch([path.watch.js], function (event, cb) {
-        gulp.start('js:build');
-    });
-
-    watch([path.watch.img], function (event, cb) {
-        gulp.start('image:build');
-    });
-
-    watch([path.watch.fonts], function (event, cb) {
-        gulp.start('fonts:build');
-    });
-});
-
-
-gulp.task('default', ['build', 'webserver', 'watch']);

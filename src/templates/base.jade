@@ -1,20 +1,23 @@
 doctype html
 html(lang='ru')
-    head
-        meta(charset='UTF-8')
-        meta(name='viewport', content='width=device-width, initial-scale=1.0')
-        link(rel='stylesheet', href='css/main.css')
-        block title
-            title
-    body
-        include  ./util/mixins.jade
+	head
+		meta(charset='UTF-8')
+		meta(name='viewport', content='width=device-width, initial-scale=1.0')
+		link(rel='stylesheet', href='css/main.css')
+		block head
+			title
+						
+		block vars
+			- var Data = [_data]
+	body
+		include  ./util/mixins.jade
 
-        block header
-            include ./components/header.jade
+		block header
+			include ./components/header.jade
 
-        block content
+		block content
 
-        block footer
-            include ./components/footer.jade
+		block footer
+			include ./components/footer.jade
 
-        script(src='js/main.js')
+		script(src='js/main.js')

@@ -1,0 +1,32 @@
+{
+  "_data": {
+    "title":"Hello World!",
+    "_posters":[
+      {
+        "link":"link attr",
+        "text":"message",
+        "img":"img_attr"
+      },
+      {
+        "link":"link attr",
+        "text":"message",
+        "img":"img_attr"
+      },
+      {
+        "link":"link attr",
+        "text":"message",
+        "img":"img_attr"
+      },
+      {
+        "link":"link attr",
+        "text":"message",
+        "img":"img_attr"
+      },
+      {
+        "link":"link attr",
+        "text":"message",
+        "img":"img_attr"
+      }
+    ]
+  }
+}
