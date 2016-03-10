@@ -3,7 +3,7 @@
 var gulp = require('gulp'),
 	jade = require('jade'),
 	jadeGulp = require('gulp-jade'),
-	jadeInheritance = require('gulp-jade-inheritance'),
+	jadeInheritance = require('gulp-jade-inheritance'), // Rebuild only changed jade files and all it dependencies
 	data = require('gulp-data'),
 	htmlPrettify = require('gulp-prettify'),
 	stylus = require('gulp-stylus'),
@@ -15,10 +15,11 @@ var gulp = require('gulp'),
 	imagemin = require('gulp-imagemin'),
 	imageminPngquant = require('imagemin-pngquant'),
 	spritesmith = require('gulp.spritesmith'),
+	rigger = require('gulp-rigger'),
 	sourcemaps = require('gulp-sourcemaps'),
 	browserSync = require('browser-sync').create(),
 	rename = require('gulp-rename'),
-	flatten = require('gulp-flatten'),
+	flatten = require('gulp-flatten'),  //remove or replace relative path for files
 	gulpif = require('gulp-if'),
 	gutil = require('gulp-util'),
 	del = require('rimraf'),
@@ -76,7 +77,7 @@ var options = {
 
 		src: {
 			html: './src/**/*.jade',
-			js: './src/js/main.js',
+			js: './src/js/*.js',
 			style: './src/style/main.styl',
 			img: './src/img/**/*.*',
 			fonts: './src/fonts/**/*.*'
@@ -98,11 +99,7 @@ var options = {
 	},
 
 	stylus: {
-		use: [
-			autoprefixer({
-				cascade: false
-			})
-		]
+		'include css': true
 	},
 
 	jade: {
@@ -148,7 +145,33 @@ gulp.task('jade:build', function () {
 			return require('./src/templates/_data.json');
 		}))
 		.pipe(jadeGulp(options.jade))
-
+		.pipe(htmlPrettify(options.htmlPrettify))
 		.pipe(gulp.dest(options.path.build.html));
 });
+
+gulp.task('style:build', function () {
+	return gulp.src(options.path.src.style)
+		.pipe(plumber(options.plumber))
+		.pipe(stylus(options.stylus))
+		.pipe(autoprefixer())
+		.pipe(gcmq({beautify: false}))
+		.pipe(csscomb())
+		.pipe(gulp.dest(options.path.build.css))
+		.pipe(cssmin())
+		.pipe(rename({suffix: '.min'}))
+		.pipe(gulp.dest(options.path.build.css))
+		.pipe(browserSync.stream());
+});
+
+gulp.task('js:build', function () {
+	gulp.src(options.path.src.js)
+		.pipe(plumber(options.plumber))
+		.pipe(rigger())
+		.pipe(gulp.dest(options.path.build.js))
+		.pipe(uglify())
+		.pipe(rename({suffix: '.min'}))
+		.pipe(gulp.dest(options.path.build.js))
+		.pipe(browserSync.stream());
+});
+
 

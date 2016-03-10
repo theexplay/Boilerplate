@@ -1,7 +1,7 @@
 {
   "_data": {
     "title":"Hello World!",
-    "_posters":[
+    "posters":[
       {
         "link":"link attr",
         "text":"message",
