@@ -11,7 +11,6 @@ var gulp = require('gulp'),
 	csscomb = require('gulp-csscomb'),
 	cssmin = require('gulp-clean-css'),
 	gcmq = require('gulp-combine-mq'),
-	iconfont = require('gulp-iconfont'),
 	imagemin = require('gulp-imagemin'),
 	imageminPngquant = require('imagemin-pngquant'),
 	spritesmith = require('gulp.spritesmith'),
@@ -63,6 +62,8 @@ var getData = function getData (file) {
 	return data;
 };
 
+var runTimestamp = Math.round(Date.now()/1000);
+
 // Plugins options
 var options = {
 
@@ -72,7 +73,8 @@ var options = {
 			js: './build/js/',
 			css: './build/css/',
 			img: './build/img/',
-			fonts: './build/fonts/'
+			fonts: './build/fonts/',
+			svgIcons: './build/img/svg-icons/'
 		},
 
 		src: {
@@ -80,7 +82,8 @@ var options = {
 			js: './src/js/*.js',
 			style: './src/style/main.styl',
 			img: './src/img/**/*.*',
-			fonts: './src/fonts/**/*.*'
+			fonts: './src/fonts/**/*.*',
+			svgIcons: './src/img/svg-icons/*.svg'
 		},
 
 		watch: {
@@ -88,10 +91,17 @@ var options = {
 			js: './src/js/**/*.js',
 			style: './src/style/**/*.styl',
 			img: './src/img/**/*.*',
-			fonts: './src/fonts/**/*.*'
+			fonts: './src/fonts/**/*.*',
+			svgIcons: './src/img/svg-icons/*.svg'
 		},
 
 		clean: './build'
+	},
+
+	browserSync: {
+		server: {
+			baseDir: './build'
+		}
 	},
 
 	plumber: {
@@ -115,6 +125,12 @@ var options = {
 		'end_with_newline': true
 	},
 
+	svgSymbols: {
+		title: false,
+		id: '%f',
+		className: '%f'
+	},
+
 	spritesmith: {
 		retinaSrcFilter: '**/*@2x.png',
 		imgName: 'sprite.png',
@@ -135,6 +151,18 @@ var options = {
 		]
 	}
 };
+
+gulp.task('cleanup', function (cb) {
+	return del(options.path.clean, cb);
+});
+
+gulp.task('browser-sync', function() {
+	return browserSync.init(options.browserSync);
+});
+
+gulp.task('bs-reload', function (cb) {
+	browserSync.reload();
+});
 
 gulp.task('jade:build', function () {
 	return gulp.src(options.path.src.html)
@@ -164,7 +192,7 @@ gulp.task('style:build', function () {
 });
 
 gulp.task('js:build', function () {
-	gulp.src(options.path.src.js)
+	return gulp.src(options.path.src.js)
 		.pipe(plumber(options.plumber))
 		.pipe(rigger())
 		.pipe(gulp.dest(options.path.build.js))
@@ -173,5 +201,4 @@ gulp.task('js:build', function () {
 		.pipe(gulp.dest(options.path.build.js))
 		.pipe(browserSync.stream());
 });
-
 
