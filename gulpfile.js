@@ -28,7 +28,8 @@ var gulp = require('gulp'),
 	runSequence = require('run-sequence'),
 	uglify = require('gulp-uglify'),
 	watch = require('gulp-watch'),
-	cached = require('gulp-cached'),
+	iconfont = require('gulp-iconfont'),
+	consolidate = require("gulp-consolidate"),
 	reload = browserSync.reload;
 
 // Error handler for gulp-plumber
@@ -43,7 +44,7 @@ var errorHandler = function (err) {
 };
 
 // Read file and return object
-var getData = function getData (file) {
+var getData = function getData(file) {
 	var dataEntry;
 	var data;
 	var fs = require('fs');
@@ -63,7 +64,7 @@ var getData = function getData (file) {
 	return data;
 };
 
-var runTimestamp = Math.round(Date.now()/1000);
+var runTimestamp = Math.round(Date.now() / 1000);
 
 // Plugins options
 var options = {
@@ -101,7 +102,8 @@ var options = {
 
 	browserSync: {
 		server: {
-			baseDir: './build'
+			baseDir: './build',
+			tunnel: true
 		}
 	},
 
@@ -150,6 +152,13 @@ var options = {
 		use: [
 			imageminPngquant()
 		]
+	},
+
+	iconfont: {
+		fontName: 'svg-icons',
+		formats: ['ttf', 'eot', 'woff'],
+		normalize: true,
+		fontHeight: 1001
 	}
 };
 
@@ -157,7 +166,7 @@ gulp.task('cleanup', function (cb) {
 	return del(options.path.clean, cb);
 });
 
-gulp.task('browser-sync', function() {
+gulp.task('browser-sync', function () {
 	return browserSync.init(options.browserSync);
 });
 
@@ -168,9 +177,8 @@ gulp.task('bs-reload', function (cb) {
 gulp.task('jade:build', function () {
 	return gulp.src(options.path.src.html)
 		.pipe(plumber(options.plumber))
-		.pipe(cached('templates'))
 		.pipe(jadeInheritance({basedir: './src'}))
-		.pipe(data(function(file) {
+		.pipe(data(function (file) {
 			return require('./src/templates/_data.json');
 		}))
 		.pipe(jadeGulp(options.jade))
@@ -230,6 +238,31 @@ gulp.task('sprite:build', function () {
 	spriteData.pipe(reload({stream: true}))
 });
 
+gulp.task('iconfont:build', function () {
+	return gulp.src([options.path.src.svgIcons])
+		.pipe(iconfont(options.iconfont))
+		.on('glyphs', function (glyphs, options) {
+			var svgIcons = [],
+				iconNames = [];
+
+			for (var i = 0; i < glyphs.length; i++) {
+				var item = {name: glyphs[i].name, icon: glyphs[i].unicode[0].charCodeAt(0).toString(16)};
+				iconNames.push(glyphs[i].name)
+				svgIcons.push(item)
+			}
+
+			gulp.src("./svg-icons.styl")
+				.pipe(consolidate("swig", {
+					icons: svgIcons,
+					iconFont: options.fontName,
+					allIcons: iconNames
+				}))
+				.pipe(gulp.dest("./src/style/__mixins/"));
+		})
+
+		.pipe(gulp.dest(options.path.build.fonts));
+});
+
 gulp.task('fonts:build', function () {
 	gulp.src(options.path.src.fonts)
 		.pipe(gulp.dest(options.path.build.fonts))
@@ -237,6 +270,7 @@ gulp.task('fonts:build', function () {
 });
 
 gulp.task('build', [
+	'iconfont:build',
 	'sprite:build',
 	'jade:build',
 	'js:build',
@@ -263,8 +297,12 @@ gulp.task('watch', function () {
 		gulp.start('image:build');
 	});
 
-	watch('./src/img/sprite/*.*', function (event, cb) {
+	watch('./src/img/sprite/**/*.*', function (event, cb) {
 		gulp.start('sprite:build');
+	});
+
+	watch('./src/img/svg-icons/*.*', function (event, cb) {
+		gulp.start('iconfont:build');
 	});
 
 	watch([options.path.watch.fonts], function (event, cb) {
