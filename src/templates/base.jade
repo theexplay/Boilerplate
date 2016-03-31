@@ -1,15 +1,18 @@
+block vars
+	- var bodyClasses = []
+	- var Data = [_data][0]
+	- var pageTitle = 'Шаблон быстрого старта'
+
 doctype html
 html(lang='ru')
 	head
 		meta(charset='UTF-8')
+		meta(http-equiv='X-UA-Compatible', content='IE=edge')
 		meta(name='viewport', content='width=device-width, initial-scale=1.0')
 		link(rel='stylesheet', href='css/main.css')
-		block head
-			title заголовок страницы
+		title= pageTitle
 						
-		block vars
-			- var Data = [_data][0]
-	body
+	body(class=bodyClasses)
 		include  ./util/mixins.jade
 
 		block header
@@ -20,4 +23,4 @@ html(lang='ru')
 		block footer
 			include ./components/footer.jade
 
-		script(src='js/main.js')
+		script(src='js/main.js')	
