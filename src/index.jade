@@ -1,7 +1,8 @@
 extends ./templates/base.jade
 
-block title
-    title  Главная страница
+block head
+	title Главная страница
 
 block content
-    h1 Привет мир!
+	- console.log(Data.title)
+	h1 #{Data.title}
