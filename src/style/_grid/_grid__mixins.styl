@@ -1,14 +1,13 @@
+@import '_grid__constants'
+
 /*
  * @param {number} $step - высота/ширина одного элемента
  * @param {number} $col - количество итераций
  */
 
 grid($step, $col, $class)
-  for i in (1..$col)
-    .col-{$class}-{i}
-      width: $step * i
-
-
-//grid(100/12, 12, 'md');
+	for i in (1..$col)
+		.col-{$class}-{i}
+			width: $step * i
 
 
