@@ -1,0 +1,19 @@
+@import "_svg-icon__constants"
+
+_svg-icon($icon)
+	&::before
+		content: $icon
+		display: inline-block
+		vertical-align: top
+		font-family: 'svg-icons'
+		font-style: normal
+		font-weight: normal
+		line-height: 1
+		-webkit-font-smoothing: antialiased
+		-moz-osx-font-smoothing: grayscale
+
+
+_svg-icon__all($iconsArray)
+	for $iconName in $iconsArray
+		&_{$iconName}
+			icon($svg-+$iconName)

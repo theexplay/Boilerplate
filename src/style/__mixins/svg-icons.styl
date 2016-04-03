@@ -4,23 +4,7 @@
 
 $_svgIcons = share
 
-icon($icon)
-	&::before
-		content: $icon
-		display: inline-block
-		vertical-align: top
-		font-family: 'svg-icons'
-		font-style: normal
-		font-weight: normal
-		line-height: 1
-		-webkit-font-smoothing: antialiased
-		-moz-osx-font-smoothing: grayscale
 
-
-allIcons($iconsArray)
-	for $iconName in $iconsArray
-		&_{$iconName}
-			icon($svg-+$iconName)
 
 @font-face {
 	font-family: "svg-icons";

@@ -11,16 +11,13 @@ html(lang='ru')
 		meta(name='viewport', content='width=device-width, initial-scale=1.0')
 		link(rel='stylesheet', href='css/main.css')
 		title=pageTitle
-						
 	body(class=bodyClasses)
-		include  ./util/mixins.jade
-
+		include components/mixins
+		
 		block header
-			include ./components/header.jade
-
+			include components/header
+				
 		block content
-
-		block footer
-			include ./components/footer.jade
 			
-		script(src='js/main.js')	
+		block footer
+			include components/footer

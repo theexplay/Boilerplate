@@ -48,7 +48,9 @@
     "run-sequence": "^1.1.5",
     "gulp-uglify": "^1.5.3",
     "gulp-watch": "^4.3.5",
-    "gulp-cached": "^1.1.0"
+    "gulp-cached": "^1.1.0",
+    "gulp-rigger":"*",
+    "gulp-consolidate":"*"
   },
   "devDependencies": {
     "gulp-iconfont": "^6.0.0"
