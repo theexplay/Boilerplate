@@ -82,7 +82,7 @@ var options = {
 		src: {
 			html: './src/**/*.jade',
 			js: './src/js/*.js',
-			style: './src/style/*.styl',
+			style: './src/style/main.styl',
 			img: './src/img/**/*.*',
 			fonts: './src/fonts/**/*.*',
 			svgIcons: './src/img/svg-icons/*.svg'
