@@ -1,0 +1,7 @@
+{% for icon in icons %}$_i__{{ icon.name }} = '\{{icon.icon}}'
+{% endfor %}
+
+// Все иконки
+$_allIcons = {{ allIcons }}
+
+$_i__font-name = {{ iconFont }}
