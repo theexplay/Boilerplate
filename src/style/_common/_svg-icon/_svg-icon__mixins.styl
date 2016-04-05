@@ -1,0 +1,25 @@
+@import "_svg-icon__constants"
+
+_svg-icon($icon, $after = null)
+	if $after
+		&::after
+			_svg-icon__styles(lookup('$_i__'+$icon))
+	else
+		&::before
+			_svg-icon__styles(lookup('$_i__'+$icon))
+
+_svg-icon__styles($unicode)
+	content: $unicode
+	display: inline-block
+	vertical-align: top
+	font-family: $_i__font-name
+	font-style: normal
+	font-weight: normal
+	line-height: 1
+	-webkit-font-smoothing: antialiased
+	-moz-osx-font-smoothing: grayscale
+
+_svg-icon__all($icons)
+	for $icon in $icons
+		.icon_{$icon}
+			_svg-icon($icon)

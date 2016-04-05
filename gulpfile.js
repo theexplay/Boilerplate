@@ -82,7 +82,7 @@ var options = {
 		src: {
 			html: './src/**/*.jade',
 			js: './src/js/*.js',
-			style: './src/style/main.styl',
+			style: './src/style/*.styl',
 			img: './src/img/**/*.*',
 			fonts: './src/fonts/**/*.*',
 			svgIcons: './src/img/svg-icons/*.svg'
@@ -242,22 +242,24 @@ gulp.task('iconfont:build', function () {
 	return gulp.src([options.path.src.svgIcons])
 		.pipe(iconfont(options.iconfont))
 		.on('glyphs', function (glyphs, options) {
-			var svgIcons = [],
+			var Icons = [],
 				iconNames = [];
 
 			for (var i = 0; i < glyphs.length; i++) {
 				var item = {name: glyphs[i].name, icon: glyphs[i].unicode[0].charCodeAt(0).toString(16)};
-				iconNames.push(glyphs[i].name)
-				svgIcons.push(item)
+				iconNames.push(glyphs[i].name);
+				Icons.push(item)
 			}
+			console.log(options)
 
-			gulp.src("./svg-icons.styl")
+			gulp.src("./src/style/_common/_svg-icon/_svg-icon__constants.mustache")
 				.pipe(consolidate("swig", {
-					icons: svgIcons,
+					icons: Icons,
 					iconFont: options.fontName,
 					allIcons: iconNames
 				}))
-				.pipe(gulp.dest("./src/style/__mixins/"));
+				.pipe(rename({extname: '.styl'}))
+				.pipe(gulp.dest("./src/style/_common/_svg-icon/"));
 		})
 
 		.pipe(gulp.dest(options.path.build.fonts));
