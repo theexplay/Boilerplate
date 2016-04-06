@@ -82,7 +82,7 @@ var options = {
 		src: {
 			html: './src/**/*.jade',
 			js: './src/js/*.js',
-			style: './src/style/*.styl',
+			style: './src/style/main.styl',
 			img: './src/img/**/*.*',
 			fonts: './src/fonts/**/*.*',
 			svgIcons: './src/img/svg-icons/*.svg'
@@ -224,17 +224,17 @@ gulp.task('sprite:build', function () {
 		gulp.src('./src/img/sprite/*.*')
 			.pipe(spritesmith({
 				imgName: 'sprite.png',
-				cssName: 'sprite-icons.styl',
+				cssName: '_sprite__constants.styl',
 				cssFormat: 'stylus',
 				algorithm: 'binary-tree',
-				cssTemplate: 'stylus.template.mustache',
+				cssTemplate: './src/style/_common/_sprite/_sprite__constants.mustache',
 				cssVarMap: function (sprite) {
 					sprite.name = 's-' + sprite.name
 				}
 			}));
 
 	spriteData.img.pipe(gulp.dest('./build/img/'));
-	spriteData.css.pipe(gulp.dest('./src/style/components/'));
+	spriteData.css.pipe(gulp.dest('./src/style/_common/_sprite/'));
 	spriteData.pipe(reload({stream: true}))
 });
 
@@ -250,7 +250,6 @@ gulp.task('iconfont:build', function () {
 				iconNames.push(glyphs[i].name);
 				Icons.push(item)
 			}
-			console.log(options)
 
 			gulp.src("./src/style/_common/_svg-icon/_svg-icon__constants.mustache")
 				.pipe(consolidate("swig", {
