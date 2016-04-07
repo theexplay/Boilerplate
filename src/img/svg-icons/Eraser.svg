@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.0.4 (8053) - http://www.bohemiancoding.com/sketch -->
+    <title>Eraser</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Design-&amp;-Development" sketch:type="MSArtboardGroup" transform="translate(-440.000000, -80.000000)" fill="#231F1F">
+            <g id="Eraser" sketch:type="MSLayerGroup" transform="translate(440.000000, 80.000000)">
+                <path d="M39.70125,25.76925 L27.16125,13.22925 L13.24025,27.15025 L25.78025,39.69025 C25.96625,39.87525 26.21625,39.98125 26.47725,39.98325 L26.60825,39.98425 C30.22525,39.98425 33.60725,38.58025 36.13325,36.03125 C38.65725,33.48225 40.02825,30.08625 39.99425,26.46725 C39.99125,26.20525 39.88725,25.95425 39.70125,25.76925 L39.70125,25.76925 Z M34.69425,28.69625 L28.69425,34.69625 C28.49925,34.89125 28.24325,34.98925 27.98725,34.98925 C27.73125,34.98925 27.47525,34.89125 27.28025,34.69625 C26.88925,34.30525 26.88925,33.67325 27.28025,33.28225 L33.28025,27.28225 C33.67125,26.89125 34.30325,26.89125 34.69425,27.28225 C35.08525,27.67325 35.08525,28.30525 34.69425,28.69625 L34.69425,28.69625 Z M25.74725,11.81525 L11.82625,25.73625 L0.29325,14.20225 C-0.09775,13.81125 -0.09775,13.17825 0.29325,12.78825 L12.80025,0.28125 C13.17525,-0.09375 13.83925,-0.09375 14.21425,0.28125 L25.74725,11.81525 L25.74725,11.81525 Z" sketch:type="MSShapeGroup"></path>
+            </g>
+        </g>
+    </g>
+</svg>

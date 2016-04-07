@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="32px" height="38px" viewBox="0 0 32 38" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.0.4 (8053) - http://www.bohemiancoding.com/sketch -->
+    <title>Photo</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Design-&amp;-Development" sketch:type="MSArtboardGroup" transform="translate(-444.000000, -241.000000)" fill="#231F1F">
+            <g id="Photo" sketch:type="MSLayerGroup" transform="translate(444.000000, 241.000000)">
+                <path d="M29.999,0 L1.999,0 C0.895,0 0,0.895 0,2 L0,36 C0,37.105 0.895,38 1.999,38 L29.999,38 C31.104,38 31.999,37.105 31.999,36 L31.999,2 C31.999,0.895 31.104,0 29.999,0 L29.999,0 Z M4,4 L28,4 L28,28 L4,28 L4,4 Z M24,25 L7.999,25 L7.999,23.984 C7.999,21.784 11.581,20 16,20 C20.418,20 24,21.784 24,23.984 L24,25 L24,25 Z M12,12 C12,9.791 13.79,8 16,8 C18.209,8 19.999,9.791 19.999,12 C19.999,15.314 18.209,18 16,18 C13.79,18 12,15.314 12,12 L12,12 Z" sketch:type="MSShapeGroup"></path>
+            </g>
+        </g>
+    </g>
+</svg>
