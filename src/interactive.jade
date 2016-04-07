@@ -1,0 +1,8 @@
+extends templates/base
+
+block content
+	h1 Svg иконки, конвертирвоанные в шрифт
+	
+	- var Icons = ['Book',	'Brush',	'desserts',	'Eraser',	'Eye',	'Eyedropper',	'main',	'Paintbucket',	'Pencil',	'Photo',	'pies',	'salads',	'share',	'side_dizhes',	'soups',	'Text']	
+	- for (var i = 0; i < Icons.length; i++)
+		.icon(class='icon_'+Icons[i])
