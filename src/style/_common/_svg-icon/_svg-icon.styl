@@ -10,3 +10,17 @@ _svg-icon__all($_allIcons)
 		url('../fonts/'+$_i__font-name+'.ttf') format('truetype')
 	font-weight: normal
 	font-style: normal
+
+
+.icon
+	display: inline-block
+	vertical-align: top
+	color: $_c__dark
+	transition: color 100ms ease
+	font-size: 22px
+
+	&:hover
+		color: $_c__green
+
+	& + &
+		margin-left: 16px

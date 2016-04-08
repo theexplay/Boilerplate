@@ -1,0 +1,15 @@
+@import '__'
+
+.section
+	width: 100%
+	max-width: $_b__canvas-width
+	margin: 0 auto
+	padding: $section__offset-y $_b__canvas-offset
+	border-radius: 5px
+	background-color: $_c__white
+	box-shadow: 0 0 1px 0 rgba($_c__black, .2)
+
+	&__container
+
+		& > * + *
+			margin-top: $section__offset-y

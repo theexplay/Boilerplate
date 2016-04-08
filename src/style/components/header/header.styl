@@ -2,8 +2,37 @@
 
 .header
 	width: 100%
+	height: $header__height
+	position: relative
+	box-shadow: 0 0 0 1px $_c__light3
+	margin-bottom: 80px
 
 	&__container
-		width: $canvas-width
-		background: $_c__black
+		position: relative
+		max-width: $_b__canvas-width
+		width: 100%
+		height: 100%
+		margin: 0 auto
+		font-size: 0
+		text-align: justify
 
+		&::after
+			content: ''
+			display: inline-block
+			width: 100%
+
+		& > *
+			display: inline-block
+			vertical-align: top
+			line-height: $header__height
+
+	&__logo
+		position: absolute
+		left: 50%
+		bottom: 0
+		transform: translate(-50%, 50%)
+		background: url(../img/logo.png) 50% 50% no-repeat, $_c__light2
+		width: 178px
+		height: 36px
+		padding: 0 5px
+		box-sizing: content-box

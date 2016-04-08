@@ -1,0 +1,31 @@
+@import '__'
+
+.link
+	color: $_c__dark
+	text-decoration: none
+	font-size: 14px
+	text-transform: capitalize
+
+	&:hover
+		color: $_c__green
+
+	// Активное / после нажатия
+	&:focus
+		color: #95b300
+
+	// Нажатое состояние
+	&:active
+		color: $_c__green
+
+	&_underline
+		text-decoration: underline
+
+		&:focus
+			color: $_c__dark
+
+	&_green
+		color: $_c__green
+
+		&:hover,
+		&:active
+			color: $_c__green-active

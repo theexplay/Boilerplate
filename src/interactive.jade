@@ -1,8 +1,10 @@
 extends templates/base
 
 block content
-	h1 Svg иконки, конвертирвоанные в шрифт
-	
-	- var Icons = ['book','brush','eraser','eye','eyedropper','paintbucket','pencil','photo','text']
-	- for (var i = 0; i < Icons.length; i++)
-		.icon(class='icon_'+Icons[i])
+	.section
+		.section__container
+			h1 Интерактивные элементы
+			.row
+				- var Icons = ['book','brush','eraser','eye','eyedropper','paintbucket','pencil','photo','text']
+				- for (var i = 0; i < Icons.length; i++)
+					.icon(class='icon_'+Icons[i])

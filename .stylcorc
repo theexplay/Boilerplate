@@ -36,7 +36,7 @@
             "filename": "__",
             "imports": ["c", "m"],
             "import_extend_source": false,
-            "content": "{{IMPORT}} {{QUOTE}}../_base/__{{QUOTE}}",
+            "content": null,
             "no_virtual": ["content"]
         },
         "i": {
