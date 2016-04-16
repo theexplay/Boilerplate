@@ -3,6 +3,14 @@ h1
 	font-size: 24px
 	color: $_c__black
 
-	+media($_b__mobile)
+	+media($_b__tablet)
+		color: red
+		background: blue
+
+	+media($_b__mobile-landscape)
+		color: green
+		background: red
+
+	+media($_b__mobile-portrait)
 		background $_c__black
 		color: $_c__white
