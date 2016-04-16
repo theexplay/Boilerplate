@@ -1,13 +1,14 @@
 @import '_grid__constants'
 
-/*
+/**
  * @param {number} $step - высота/ширина одного элемента
  * @param {number} $col - количество итераций
+ * @param {string} $prefix - префикс. (s)mall / (m)edium / (l)arge
  */
 
-grid($step, $col, $class)
+grid($step, $col, $prefix)
 	for i in (1..$col)
-		.col-{$class}-{i}
+		.col-{$prefix}-{i}
 			width: $step * i
 
 

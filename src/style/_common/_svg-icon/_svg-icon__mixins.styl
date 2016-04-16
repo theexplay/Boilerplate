@@ -1,6 +1,6 @@
 @import "_svg-icon__constants"
 
-_svg-icon($icon, $after = null)
+_svg-icon($icon, $after = false)
 	if $after
 		&::after
 			_svg-icon__styles(lookup('$_i__'+$icon))
