@@ -74,7 +74,7 @@ gulp webserver
 │  │  ├── fonts/                  # Шрифты
 │  │  ├── img/                    # Изображения
 │  │  ├── img/sprite/             # Иконки для склеивания спрайта
-│  │  ├── img/svg-icons/          # Иконки для склеивания спрайта
+│  │  ├── img/svg-icons/          # Svg иконки
 │  │  ├── js/                     # Скрипты
 │  │  │  ├── vendor               # Bower components
 │  │  │  ├── app.js               # Контроллер
