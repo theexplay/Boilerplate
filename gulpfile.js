@@ -135,9 +135,9 @@ var options = {
 	},
 
 	spritesmith: {
-		retinaSrcFilter: '**/*@2x.png',
+		retinaSrcFilter: '**/*_2x.png',
 		imgName: 'sprite.png',
-		retinaImgName: 'sprite@2x.png',
+		retinaImgName: 'sprite_2x.png',
 		cssName: 'sprite.styl',
 		algorithm: 'binary-tree',
 		padding: 8,
