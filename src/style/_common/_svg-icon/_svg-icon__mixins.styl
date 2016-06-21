@@ -3,10 +3,10 @@
 _svg-icon($icon, $after = false)
 	if $after
 		&::after
-			_svg-icon__styles(lookup('$_i__'+$icon))
+			_svg-icon__styles($icon)
 	else
 		&::before
-			_svg-icon__styles(lookup('$_i__'+$icon))
+			_svg-icon__styles($icon)
 
 _svg-icon__styles($unicode)
 	content: $unicode
