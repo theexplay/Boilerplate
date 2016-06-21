@@ -11,6 +11,7 @@ html(lang='ru')
 		meta(name='viewport', content='width=device-width, initial-scale=1.0')
 		link(rel='stylesheet', href='css/main.css')
 		title=pageTitle
+		
 	body(class=bodyClasses)
 		include components/mixins
 		
@@ -21,3 +22,7 @@ html(lang='ru')
 			
 		block footer
 			include components/footer
+				
+		block scripts
+			script(src='../js/assets.min.js')
+			script(src='../js/app.min.js')
