@@ -20,30 +20,12 @@
             "content": "{{NEWLINE}}.{{NAME}}{{NEWLINE}}{{INDENT}}// your code here",
             "no_virtual": "content"
         },
-        "c": {
-            "filename": "{{NAME}}__constants",
-            "imports": [],
-            "import_extend_source": true,
-            "content": null
-        },
-        "m": {
-            "filename": "{{NAME}}__mixins",
-            "imports": ["c"],
-            "import_extend_source": true,
-            "content": null
-        },
         "_": {
             "filename": "__",
             "imports": ["c", "m"],
-            "import_extend_source": false,
-            "content": "{{IMPORT}} {{QUOTE}}../_base/__{{QUOTE}}",
+            "import_extend_source": true,
+            "content": "// your vars and mixins here",
             "no_virtual": ["content"]
-        },
-        "i": {
-            "filename": "index",
-            "imports": ["_", "."],
-            "import_extend_source": false,
-            "content": null
         }
     }
 }
