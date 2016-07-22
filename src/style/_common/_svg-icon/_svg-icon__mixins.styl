@@ -23,4 +23,4 @@ _svg-icon__styles($unicode)
 _svg-icon__all($icons)
 	for $icon in $icons
 		.icon_{$icon}
-			_svg-icon($icon)
+			_svg-icon(lookup('$_i__'+$icon))
