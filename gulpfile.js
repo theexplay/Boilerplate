@@ -92,7 +92,7 @@ var options = {
 			html: './src/**/*.jade',
 			js: './src/js/**/*.js',
 			style: './src/style/**/*.styl',
-			img: './src/img/**/*.*',
+			img: './src/img/**/*.{jpg,png}',
 			fonts: './src/fonts/**/*.*',
 			svgIcons: './src/img/svg-icons/*.svg'
 		},
@@ -211,7 +211,7 @@ gulp.task('js:build', function () {
 });
 
 gulp.task('image:build', function (err, files) {
-	gulp.src(options.path.src.img)
+	return gulp.src(options.path.src.img)
 		.pipe(imagemin(options.imagemin))
 		.pipe(gulp.dest(options.path.build.img))
 		.pipe(reload({stream: true}));
